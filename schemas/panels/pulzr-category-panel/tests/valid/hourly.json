@@ -1,0 +1,12 @@
+{
+  "kind": "PulzrCategoryPanel",
+  "spec": {
+    "display": "bar",
+    "format": { "unit": "percent-decimal", "decimalPlaces": 0 },
+    "color": "#10b981",
+    "intensity": true,
+    "average": true,
+    "xAxis": { "label": "Hour of Day" },
+    "yAxis": { "label": "Occupancy Rate", "min": 0, "max": 1 }
+  }
+}
