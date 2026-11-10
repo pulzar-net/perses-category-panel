@@ -20,6 +20,10 @@ spec: close({
 	areaOpacity?: number & >=0 & <=1
 	// Columns at most this wide, in px; 0 lets them fill their category.
 	maxBarWidth?: number & >=0
+	// Columns standing up, or bars lying across with the names on the left.
+	orientation?: "vertical" | "horizontal"
+	// Each value written at the end of its column or bar.
+	labels?: bool
 	sort?:   "desc" | "asc"
 	limit?:  int & >0
 	xAxis?: close({

@@ -22,6 +22,7 @@ spec:
 - `color`: any CSS color; the theme's first series color without it.
 - `intensity`: a column's or cell's opacity follows its value, the largest full and none below 0.15.
 - `average`: a dashed line at the mean. `points`: a dot on each value of a line or area, every one.
+- `orientation: horizontal` lays the columns across, the names down the left (cut at 22 characters), first on top: a ranking. `labels` writes each value at the end of its column or bar, money short (`$5.7k`, `$12k`).
 - `areaOpacity`: an area's fill, 0.12 unless set. `maxBarWidth`: columns at most this wide in px, 32 unless set; 0 lets them fill their category.
 - `format` formats the value axis, tooltips and cells (any Perses format). `xAxis.label`, `yAxis.label`, `yAxis.min` and `yAxis.max` as their names say.
 - "No data" shows when no series has a value.

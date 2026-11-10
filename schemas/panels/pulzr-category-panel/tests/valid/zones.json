@@ -1,0 +1,11 @@
+{
+  "kind": "PulzrCategoryPanel",
+  "spec": {
+    "display": "bar",
+    "orientation": "horizontal",
+    "labels": true,
+    "format": { "unit": "usd" },
+    "maxBarWidth": 18,
+    "limit": 8
+  }
+}

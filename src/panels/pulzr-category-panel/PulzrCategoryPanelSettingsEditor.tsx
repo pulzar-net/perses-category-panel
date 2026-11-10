@@ -12,7 +12,7 @@ export function PulzrCategoryPanelSettingsEditor({
   value,
   onChange,
 }: OptionsEditorProps<PulzrCategoryPanelOptions>): ReactElement {
-  const toggle = (key: 'intensity' | 'average' | 'points', label: string): ReactElement => (
+  const toggle = (key: 'intensity' | 'average' | 'points' | 'labels', label: string): ReactElement => (
     <FormControlLabel
       control={
         <Switch
@@ -49,6 +49,19 @@ export function PulzrCategoryPanelSettingsEditor({
           {toggle('intensity', 'Fade by value')}
           {toggle('average', 'Line at the average')}
           {toggle('points', 'Dots on a line')}
+          {toggle('labels', 'Values on the columns')}
+          <TextField
+            select
+            size="small"
+            label="Columns"
+            value={value.orientation ?? 'vertical'}
+            onChange={(e) =>
+              onChange({ ...value, orientation: e.target.value === 'horizontal' ? 'horizontal' : undefined })
+            }
+          >
+            <MenuItem value="vertical">Standing up</MenuItem>
+            <MenuItem value="horizontal">Lying across, names on the left</MenuItem>
+          </TextField>
           <TextField
             size="small"
             type="number"

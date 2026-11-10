@@ -20,6 +20,10 @@ export interface PulzrCategoryPanelOptions {
   areaOpacity?: number;
   /** Columns at most this wide, in px: 32 unless set; 0 lets them fill their category. */
   maxBarWidth?: number;
+  /** Columns standing up (vertical, the default), or bars lying across, names on the left: a ranking. */
+  orientation?: 'vertical' | 'horizontal';
+  /** Each value written at the end of its column or bar; money short, `$5.7k`. */
+  labels?: boolean;
   /** Largest first; as the query gives them unless set. */
   sort?: 'desc' | 'asc';
   /** At most this many categories, after sorting. */
