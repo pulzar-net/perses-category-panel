@@ -28,7 +28,8 @@ export interface PulzrCategoryPanelOptions {
   sort?: 'desc' | 'asc';
   /** At most this many categories, after sorting. */
   limit?: number;
-  xAxis?: { label?: string };
+  /** `labelEvery`: name every so many categories, as every third hour: 12a, 3a, 6a. */
+  xAxis?: { label?: string; labelEvery?: number };
   yAxis?: { label?: string; min?: number; max?: number };
 }
 

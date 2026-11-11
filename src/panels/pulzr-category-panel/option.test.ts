@@ -20,6 +20,19 @@ describe('chartOption', () => {
     expect(seriesOf(option)).toMatchObject({ type: 'bar', data: [0.2, 0.4], itemStyle: { color: '#10b981' } });
   });
 
+  it('leaves a gap for a category with no value, and names every nth when asked', () => {
+    const option = chartOption([...categories, { name: 'Wed', value: null }], { display: 'line', xAxis: { labelEvery: 3 } }, '#0cf');
+    expect(seriesOf(option).data).toEqual([0.2, 0.4, null]);
+    expect((option.xAxis as { axisLabel: { interval: number } }).axisLabel.interval).toBe(2);
+  });
+
+  it('steps whole numbers by whole numbers', () => {
+    const counts = chartOption(categories, { format: { unit: 'decimal', decimalPlaces: 0 } }, '#0cf');
+    expect((counts.yAxis as { minInterval?: number }).minInterval).toBe(1);
+    const rates = chartOption(categories, { format: { unit: 'percent-decimal', decimalPlaces: 0 } }, '#0cf');
+    expect((rates.yAxis as { minInterval?: number }).minInterval).toBeUndefined();
+  });
+
   it('fades columns by their value with intensity', () => {
     const option = chartOption(categories, { intensity: true }, '#10b981');
     expect(seriesOf(option).data).toEqual([

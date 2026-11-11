@@ -19,11 +19,27 @@ describe('categoriesOf', () => {
     ]);
   });
 
-  it('leaves out the period compared and series with no value', () => {
+  it('leaves out the period compared and series with no points; one with no value is a gap', () => {
     const results = [
-      data(at('Mon', 1), at('Mon · previous period', 2, { labels: { compare: 'previous' } }), at('Tue', null)),
+      data(
+        at('Mon', 1),
+        at('Mon · previous period', 2, { labels: { compare: 'previous' } }),
+        at('Tue', null),
+        { name: 'Wed', values: [] },
+      ),
     ];
-    expect(categoriesOf(results)).toEqual([{ name: 'Mon', value: 1 }]);
+    expect(categoriesOf(results)).toEqual([
+      { name: 'Mon', value: 1 },
+      { name: 'Tue', value: null },
+    ]);
+  });
+
+  it('sorts a category with no value last', () => {
+    const results = [data(at('a', 1), at('b', null), at('c', 2))];
+    expect(categoriesOf(results, { sort: 'desc' }).map((c) => c.name)).toEqual(['c', 'a', 'b']);
+    expect(categoriesOf(results, { sort: 'asc' }).map((c) => c.name)).toEqual(['a', 'c', 'b']);
+    expect(mean(categoriesOf(results))).toBe(1.5);
+    expect(peakIndex(categoriesOf(results))).toBe(2);
   });
 
   it('sorts and limits a ranking', () => {

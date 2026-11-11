@@ -8,7 +8,7 @@ import type { ReactElement } from 'react';
 import { useMemo } from 'react';
 
 import type { Category } from './categories';
-import { categoriesOf, intensity, peakIndex } from './categories';
+import { categoriesOf, intensity, peakIndex, valuesOf } from './categories';
 import { chartOption } from './option';
 import type { PulzrCategoryPanelOptions, PulzrCategoryPanelProps } from './pulzr-category-panel-types';
 
@@ -24,7 +24,7 @@ function Cells({
   spec: PulzrCategoryPanelOptions;
   color: string;
 }): ReactElement {
-  const max = Math.max(0, ...categories.map((c) => c.value));
+  const max = Math.max(0, ...valuesOf(categories));
   const peak = peakIndex(categories);
   const tiny = { fontSize: 7, lineHeight: 1, fontFeatureSettings: "'tnum' 1" } as const;
   return (
@@ -40,7 +40,11 @@ function Cells({
       }}
     >
       {categories.map((c, i) => (
-        <Tooltip key={c.name} title={`${c.name}: ${formatValue(c.value, spec.format)}`} disableInteractive>
+        <Tooltip
+          key={c.name}
+          title={c.value === null ? c.name : `${c.name}: ${formatValue(c.value, spec.format)}`}
+          disableInteractive
+        >
           <Stack alignItems="center" gap="3px" minWidth={0}>
             <Box
               sx={{
@@ -50,13 +54,19 @@ function Cells({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                bgcolor: `color-mix(in srgb, ${color} ${Math.round((spec.intensity === false ? 1 : intensity(c.value, max)) * 100)}%, transparent)`,
+                bgcolor:
+                  c.value === null
+                    ? 'transparent'
+                    : `color-mix(in srgb, ${color} ${Math.round((spec.intensity === false ? 1 : intensity(c.value, max)) * 100)}%, transparent)`,
+                border: c.value === null ? 1 : 0,
+                borderColor: 'divider',
+                boxSizing: 'border-box',
                 outline: i === peak ? `1px solid ${color}` : 'none',
                 outlineOffset: 1,
               }}
             >
               <Typography component="span" sx={{ ...tiny, color: 'text.primary' }}>
-                {formatValue(c.value, { ...spec.format, decimalPlaces: 0 })}
+                {c.value === null ? '' : formatValue(c.value, { ...spec.format, decimalPlaces: 0 })}
               </Typography>
             </Box>
             <Typography component="span" sx={{ ...tiny, color: 'text.secondary', whiteSpace: 'nowrap' }}>

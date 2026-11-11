@@ -3,7 +3,7 @@ import { formatValue } from '@perses-dev/components';
 import type { EChartsCoreOption } from 'echarts/core';
 
 import type { Category } from './categories';
-import { intensity, mean } from './categories';
+import { intensity, mean, valuesOf } from './categories';
 import type { PulzrCategoryPanelOptions } from './pulzr-category-panel-types';
 
 const NAME = { nameLocation: 'middle', nameTextStyle: { fontSize: 10 } } as const;
@@ -46,10 +46,10 @@ const cut = (name: string, at = 22): string => (name.length > at ? `${name.slice
 export function chartOption(categories: Category[], spec: PulzrCategoryPanelOptions, color: string): EChartsCoreOption {
   const display = spec.display ?? 'bar';
   const format: FormatOptions = spec.format ?? { unit: 'decimal' };
-  const max = Math.max(0, ...categories.map((c) => c.value));
+  const max = Math.max(0, ...valuesOf(categories));
   const average = spec.average ? mean(categories) : undefined;
   const data = categories.map((c) =>
-    spec.intensity && display === 'bar' ? { value: c.value, itemStyle: { opacity: intensity(c.value, max) } } : c.value,
+    spec.intensity && display === 'bar' && c.value !== null ? { value: c.value, itemStyle: { opacity: intensity(c.value, max) } } : c.value,
   );
   const horizontal = spec.orientation === 'horizontal' && display === 'bar';
   const categoryAxis = {
@@ -57,6 +57,7 @@ export function chartOption(categories: Category[], spec: PulzrCategoryPanelOpti
     data: categories.map((c) => (horizontal ? cut(c.name) : c.name)),
     boundaryGap: display === 'bar',
     axisTick: { show: false },
+    ...(spec.xAxis?.labelEvery && !horizontal ? { axisLabel: { interval: spec.xAxis.labelEvery - 1 } } : {}),
     ...(horizontal ? { inverse: true, axisLine: { show: false }, axisLabel: { fontSize: 11 } } : {}),
     ...(spec.xAxis?.label ? { ...NAME, name: spec.xAxis.label, nameGap: 22 } : {}),
   };
@@ -66,6 +67,8 @@ export function chartOption(categories: Category[], spec: PulzrCategoryPanelOpti
         type: 'value',
         min: spec.yAxis?.min,
         max: spec.yAxis?.max,
+        // Whole numbers step by whole numbers: 0.5 written to no places reads as 1, twice.
+        ...(format.decimalPlaces === 0 && !format.unit?.startsWith('percent') ? { minInterval: 1 } : {}),
         axisLabel: { formatter: (v: number): string => formatValue(v, format) },
         ...(spec.yAxis?.label ? { ...NAME, name: spec.yAxis.label, nameGap: 34 } : {}),
       };
