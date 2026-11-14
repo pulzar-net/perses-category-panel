@@ -1,5 +1,10 @@
 # Category panel for Perses
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/pulzar-net/perses-category-panel/releases/latest/download/preview-dark.png">
+  <img alt="The PulzrCategoryPanel: occupancy by hour of the day as columns, shaded by value, with a dashed average" src="https://github.com/pulzar-net/perses-category-panel/releases/latest/download/preview-light.png">
+</picture>
+
 `PulzrCategoryPanel` draws values by category rather than over time: occupancy by hour of the day, a weekday pattern, the busiest spaces. As columns, a line, an area, or a strip of cells with each value in it.
 
 ```yaml

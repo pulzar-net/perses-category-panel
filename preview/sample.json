@@ -1,0 +1,185 @@
+{
+ "$schema": "https://raw.githubusercontent.com/pulzar-net/perses-panel-preview/main/sample.schema.json",
+ "timeRange": {
+  "start": "2026-01-14T00:00:00Z",
+  "end": "2026-01-15T00:00:00Z"
+ },
+ "panel": {
+  "kind": "Panel",
+  "spec": {
+   "display": {
+    "name": "Occupancy by hour of day"
+   },
+   "plugin": {
+    "kind": "PulzrCategoryPanel",
+    "spec": {
+     "display": "bar",
+     "format": {
+      "unit": "percent-decimal",
+      "decimalPlaces": 0
+     },
+     "color": "#10b981",
+     "intensity": true,
+     "average": true,
+     "xAxis": {
+      "labelEvery": 3
+     },
+     "yAxis": {
+      "min": 0,
+      "max": 1
+     }
+    }
+   }
+  }
+ },
+ "queries": [
+  {
+   "series": [
+    {
+     "name": "12a",
+     "points": [
+      0.08
+     ]
+    },
+    {
+     "name": "1a",
+     "points": [
+      0.08
+     ]
+    },
+    {
+     "name": "2a",
+     "points": [
+      0.081
+     ]
+    },
+    {
+     "name": "3a",
+     "points": [
+      0.083
+     ]
+    },
+    {
+     "name": "4a",
+     "points": [
+      0.088
+     ]
+    },
+    {
+     "name": "5a",
+     "points": [
+      0.101
+     ]
+    },
+    {
+     "name": "6a",
+     "points": [
+      0.128
+     ]
+    },
+    {
+     "name": "7a",
+     "points": [
+      0.181
+     ]
+    },
+    {
+     "name": "8a",
+     "points": [
+      0.269
+     ]
+    },
+    {
+     "name": "9a",
+     "points": [
+      0.395
+     ]
+    },
+    {
+     "name": "10a",
+     "points": [
+      0.548
+     ]
+    },
+    {
+     "name": "11a",
+     "points": [
+      0.702
+     ]
+    },
+    {
+     "name": "12p",
+     "points": [
+      0.817
+     ]
+    },
+    {
+     "name": "1p",
+     "points": [
+      0.86
+     ]
+    },
+    {
+     "name": "2p",
+     "points": [
+      0.817
+     ]
+    },
+    {
+     "name": "3p",
+     "points": [
+      0.704
+     ]
+    },
+    {
+     "name": "4p",
+     "points": [
+      0.559
+     ]
+    },
+    {
+     "name": "5p",
+     "points": [
+      0.432
+     ]
+    },
+    {
+     "name": "6p",
+     "points": [
+      0.347
+     ]
+    },
+    {
+     "name": "7p",
+     "points": [
+      0.281
+     ]
+    },
+    {
+     "name": "8p",
+     "points": [
+      0.206
+     ]
+    },
+    {
+     "name": "9p",
+     "points": [
+      0.138
+     ]
+    },
+    {
+     "name": "10p",
+     "points": [
+      0.098
+     ]
+    },
+    {
+     "name": "11p",
+     "points": [
+      0.085
+     ]
+    }
+   ]
+  }
+ ]
+}
